@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronograma GEPEATE 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d2340;
+    --teal: #007070;
+    --teal-light: #00a0a0;
+    --gold: #c8923a;
+    --gold-light: #e8b060;
+    --bg: #f4f6f8;
+    --white: #ffffff;
+    --text: #1a2535;
+    --muted: #6b7a8d;
+    --border: #dde3ea;
+    --past-bg: #fff9f0;
+    --today-bg: #e8f7f7;
+    --holiday-bg: #fff2f2;
+    --row-hover: #f0f8f8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 60%, #0a4a4a 100%);
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(0,160,160,0.12);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 30%;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(200,146,58,0.10);
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    background: rgba(200,146,58,0.15);
+    border: 1px solid rgba(200,146,58,0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .header h1 span { color: var(--gold-light); }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 1.2rem;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+  }
+  .meta-item svg { flex-shrink: 0; opacity: 0.8; }
+
+  /* NOTICE */
+  .notice {
+    background: #e8f4fd;
+    border-left: 4px solid #3b82f6;
+    margin: 1.5rem 1.5rem 0;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.82rem;
+    color: #1e40af;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  /* MAIN */
+  .main { padding: 1.5rem; max-width: 960px; margin: 0 auto; }
+
+  /* SEMESTER BLOCK */
+  .semester-block { margin-bottom: 2.5rem; }
+
+  .semester-header {
+    background: var(--navy);
+    color: white;
+    padding: 0.9rem 1.4rem;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .semester-title {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .semester-info {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.6);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* TABLE */
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    background: white;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th {
+    background: #1a3050;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+  thead th:first-child { width: 160px; }
+  thead th:nth-child(2) { width: 180px; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--row-hover); }
+
+  tbody tr.past { background: var(--past-bg); }
+  tbody tr.today { background: var(--today-bg); }
+  tbody tr.holiday { background: var(--holiday-bg); }
+  tbody tr.past:hover { background: #fff3e0; }
+  tbody tr.today:hover { background: #d4f0f0; }
+
+  td {
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    vertical-align: top;
+  }
+
+  .date-cell { white-space: nowrap; }
+  .date-main {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--navy);
+    display: block;
+  }
+  .date-day {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+    display: block;
+  }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.3rem;
+  }
+  .badge-past { background: #fde8c8; color: #92540a; }
+  .badge-today { background: #b2e8e8; color: #005a5a; }
+
+  .holiday-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #b91c1c;
+    font-size: 0.84rem;
+    font-style: italic;
+  }
+
+  .obs-muted {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-style: italic;
+  }
+
+  /* FOOTER ROW */
+  .footer-row td {
+    background: #f8fafc;
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding: 0.7rem 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-row td span { margin-right: 0.5rem; }
+
+  /* PAGE FOOTER */
+  .page-footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .main { padding: 1rem; }
+    thead th:nth-child(2) { display: none; }
+    td:nth-child(2) { display: none; }
+    .header { padding: 1.5rem 1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">EEFERP – USP · Ribeirão Preto</div>
+  <h1>Cronograma GEPEATE <span>2026</span></h1>
+  <div class="header-meta">
+    <div class="meta-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Quartas-feiras · 14h00 – 18h00
+    </div>
+    <div class="meta-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Sala 5 · Bloco 2 · EEFERP
+    </div>
+  </div>
+</div>
+
+<div class="notice">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-top:1px;flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span><strong>Para preencher:</strong> o professor edita esta página (Modo de edição → Cronograma GEPEATE 2026 → Configurações) e atualiza os campos da tabela conforme o planejamento do grupo.</span>
+</div>
+
+<div class="main">
+
+  <!-- 1º SEMESTRE -->
+  <div class="semester-block">
+    <div class="semester-header">
+      <span class="semester-title">1º Semestre</span>
+      <span class="semester-info">08/04/2026 a 10/06/2026 · 10 reuniões</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Responsável</th>
+            <th>Tema / Conteúdo</th>
+            <th>Observações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="past">
+            <td class="date-cell">
+              <span class="date-main">08/04/2026</span>
+              <span class="date-day">Qua</span>
+              <span class="badge badge-past">Passada</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr class="past">
+            <td class="date-cell">
+              <span class="date-main">15/04/2026</span>
+              <span class="date-day">Qua</span>
+              <span class="badge badge-past">Passada</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr class="today">
+            <td class="date-cell">
+              <span class="date-main">22/04/2026</span>
+              <span class="date-day">Qua</span>
+              <span class="badge badge-today">Hoje</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">29/04/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">06/05/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">13/05/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">20/05/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">27/05/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">03/06/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">10/06/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="footer-row">
+            <td colspan="4"><span>📌</span> Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2º SEMESTRE -->
+  <div class="semester-block">
+    <div class="semester-header">
+      <span class="semester-title">2º Semestre</span>
+      <span class="semester-info">07/10/2026 a 18/11/2026</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Responsável</th>
+            <th>Tema / Conteúdo</th>
+            <th>Observações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">07/10/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">14/10/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">21/10/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr class="holiday">
+            <td class="date-cell">
+              <span class="date-main">28/10/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td colspan="2">
+              <div class="holiday-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Feriado – Dia do Servidor Público
+              </div>
+            </td>
+            <td><span class="obs-muted">sem atividades</span></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">04/11/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">11/11/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr>
+            <td class="date-cell">
+              <span class="date-main">18/11/2026</span>
+              <span class="date-day">Qua</span>
+            </td>
+            <td></td><td></td><td></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="footer-row">
+            <td colspan="4"><span>📌</span> Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  Última atualização: <span id="last-updated"></span> &nbsp;·&nbsp; GEPEATE/LaCiDH · EEFERP-USP
+</div>
+
+<script>
+  // Data dinâmica
+  const now = new Date();
+  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('last-updated').textContent = now.toLocaleDateString('pt-BR', opts);
+
+  // Destacar "hoje" dinamicamente
+  const todayStr = now.toLocaleDateString('pt-BR').replace(/\//g, '/');
+  document.querySelectorAll('.date-main').forEach(el => {
+    if (el.textContent.trim() === todayStr) {
+      el.closest('tr').classList.add('today');
+      const badge = el.parentElement.querySelector('.badge');
+      if (badge) { badge.className = 'badge badge-today'; badge.textContent = 'Hoje'; }
+    }
+  });
+</script>
+
+</body>
+</html>
