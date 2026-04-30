@@ -19,87 +19,183 @@
     --past-bg: #fff9f0;
     --today-bg: #e8f7f7;
     --holiday-bg: #fff2f2;
-    --row-hover: #f0f8f8;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
  
-  .header { background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 60%, #0a4a4a 100%); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
-  .header::before { content:''; position:absolute; top:-40px; right:-40px; width:220px; height:220px; border-radius:50%; background:rgba(0,160,160,.12); }
-  .header::after  { content:''; position:absolute; bottom:-30px; left:30%; width:140px; height:140px; border-radius:50%; background:rgba(200,146,58,.10); }
-  .header-tag { display:inline-block; font-family:'DM Mono',monospace; font-size:.7rem; font-weight:500; letter-spacing:.15em; text-transform:uppercase; color:var(--gold-light); background:rgba(200,146,58,.15); border:1px solid rgba(200,146,58,.3); padding:.3rem .8rem; border-radius:20px; margin-bottom:1rem; }
-  .header h1 { font-size:clamp(1.6rem,4vw,2.4rem); font-weight:700; color:#fff; line-height:1.2; margin-bottom:.5rem; }
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 60%, #0a4a4a 100%);
+    padding: 2.2rem 2rem 1.8rem; position: relative; overflow: hidden;
+  }
+  .header::before { content:''; position:absolute; top:-40px; right:-40px; width:200px; height:200px; border-radius:50%; background:rgba(0,160,160,.12); }
+  .header::after  { content:''; position:absolute; bottom:-30px; left:30%; width:130px; height:130px; border-radius:50%; background:rgba(200,146,58,.10); }
+  .header-tag { display:inline-block; font-family:'DM Mono',monospace; font-size:.7rem; font-weight:500; letter-spacing:.15em; text-transform:uppercase; color:var(--gold-light); background:rgba(200,146,58,.15); border:1px solid rgba(200,146,58,.3); padding:.3rem .8rem; border-radius:20px; margin-bottom:.8rem; }
+  .header h1 { font-size:clamp(1.5rem,4vw,2.2rem); font-weight:700; color:#fff; line-height:1.2; margin-bottom:.4rem; }
   .header h1 span { color:var(--gold-light); }
-  .header-meta { display:flex; flex-wrap:wrap; gap:1.2rem; margin-top:1.2rem; }
-  .meta-item { display:flex; align-items:center; gap:.5rem; font-size:.85rem; color:rgba(255,255,255,.75); }
+  .header-meta { display:flex; flex-wrap:wrap; gap:1.2rem; margin-top:1rem; }
+  .meta-item { display:flex; align-items:center; gap:.5rem; font-size:.84rem; color:rgba(255,255,255,.75); }
  
-  .edit-hint { background:#fffbea; border-left:4px solid var(--gold); margin:1.2rem 1.5rem 0; padding:.7rem 1.2rem; border-radius:0 6px 6px 0; font-size:.82rem; color:#7a5500; }
-  .notice { background:#e8f4fd; border-left:4px solid #3b82f6; margin:.6rem 1.5rem 0; padding:.7rem 1.2rem; border-radius:0 6px 6px 0; font-size:.82rem; color:#1e40af; }
+  /* TOOLBAR */
+  .toolbar {
+    background: #1e2d40;
+    padding: .6rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--teal);
+  }
+  .toolbar-label { font-size:.75rem; color:rgba(255,255,255,.5); font-family:'DM Mono',monospace; letter-spacing:.05em; }
+  .tb-btn {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    color: rgba(255,255,255,.85);
+    border-radius: 5px;
+    padding: .35rem .85rem;
+    font-size: .78rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .tb-btn:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.35); }
+  .tb-btn.primary { background: var(--teal); border-color: var(--teal); color: white; font-weight: 600; }
+  .tb-btn.primary:hover { background: var(--teal-light); }
+  .tb-btn.danger { background: rgba(180,30,30,.3); border-color: rgba(255,100,100,.3); }
+  .tb-btn.danger:hover { background: rgba(180,30,30,.6); }
+  .tb-sep { width: 1px; height: 22px; background: rgba(255,255,255,.15); }
+  .edit-mode-badge {
+    margin-left: auto;
+    font-size: .72rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--gold-light);
+    background: rgba(200,146,58,.15);
+    border: 1px solid rgba(200,146,58,.3);
+    padding: .25rem .7rem;
+    border-radius: 20px;
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .dot { width:7px; height:7px; border-radius:50%; background: #4ade80; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
  
-  .main { padding:1.5rem; max-width:960px; margin:0 auto; }
-  .semester-block { margin-bottom:2.5rem; }
-  .semester-header { background:var(--navy); color:white; padding:.9rem 1.4rem; border-radius:10px 10px 0 0; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
-  .semester-title { font-size:1rem; font-weight:700; }
-  .semester-info { font-size:.78rem; color:rgba(255,255,255,.6); font-family:'DM Mono',monospace; }
+  /* MAIN */
+  .main { padding: 1.5rem; max-width: 980px; margin: 0 auto; }
  
-  .table-wrap { border:1px solid var(--border); border-top:none; border-radius:0 0 10px 10px; overflow:hidden; background:white; }
-  table { width:100%; border-collapse:collapse; }
-  thead th { background:#1a3050; color:rgba(255,255,255,.75); font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:.75rem 1rem; text-align:left; }
-  thead th:first-child { width:150px; }
+  /* SEMESTER BLOCK */
+  .semester-block { margin-bottom: 2.5rem; }
+  .semester-header {
+    background: var(--navy);
+    color: white;
+    padding: .85rem 1.3rem;
+    border-radius: 10px 10px 0 0;
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  }
+  .semester-title { font-size: 1rem; font-weight: 700; }
+  .semester-info { font-size: .78rem; color: rgba(255,255,255,.6); font-family:'DM Mono',monospace; }
  
-  tbody tr { border-bottom:1px solid var(--border); transition:background .15s; }
-  tbody tr:last-child { border-bottom:none; }
-  tbody tr:hover { background:var(--row-hover); }
-  tbody tr.past    { background:var(--past-bg); }
-  tbody tr.today   { background:var(--today-bg); }
-  tbody tr.holiday { background:var(--holiday-bg); }
-  tbody tr.past:hover  { background:#fff3e0; }
-  tbody tr.today:hover { background:#d4f0f0; }
+  /* TABLE */
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    background: white;
+  }
  
-  td { padding:.75rem 1rem; font-size:.88rem; vertical-align:top; }
-  .date-cell { white-space:nowrap; }
-  .date-main { font-weight:700; font-size:.95rem; color:var(--navy); display:block; }
-  .date-day  { font-size:.72rem; color:var(--muted); margin-top:.15rem; display:block; }
-  .badge { display:inline-block; font-size:.62rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:.18rem .5rem; border-radius:4px; margin-top:.3rem; }
-  .badge-past  { background:#fde8c8; color:#92540a; }
-  .badge-today { background:#b2e8e8; color:#005a5a; }
+  table { width: 100%; border-collapse: collapse; }
  
-  /* EDITABLE */
-  .editable {
-    min-height: 1.6rem;
-    border-radius: 4px;
-    padding: .25rem .4rem;
+  /* Make ALL cells editable-looking */
+  td, th {
+    padding: .7rem 1rem;
+    font-size: .88rem;
+    vertical-align: top;
     outline: none;
+    position: relative;
+  }
+ 
+  thead th {
+    background: #1a3050;
+    color: rgba(255,255,255,.8);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-align: left;
     cursor: text;
-    transition: background .15s, box-shadow .15s;
-    white-space: pre-wrap;
-    word-break: break-word;
   }
-  .editable:empty::before { content: attr(data-placeholder); color: #ccc; font-style: italic; pointer-events: none; }
-  .editable:focus { background: #e8f4ff; box-shadow: 0 0 0 2px #3b82f6; }
-  .editable:hover:not(:focus) { background: #f5f9ff; }
- 
-  .holiday-label { display:flex; align-items:center; gap:.5rem; color:#b91c1c; font-size:.84rem; font-style:italic; }
-  .obs-muted { color:var(--muted); font-size:.78rem; font-style:italic; }
-  .footer-row td { background:#f8fafc; font-size:.78rem; color:var(--muted); padding:.7rem 1rem; border-top:1px solid var(--border); }
- 
-  /* SAVE BAR */
-  #save-bar {
-    position:fixed; bottom:0; left:0; right:0;
-    background:var(--navy); color:white;
-    padding:.8rem 1.5rem;
-    display:flex; align-items:center; justify-content:space-between;
-    font-size:.85rem; z-index:100;
-    transform:translateY(100%); transition:transform .3s ease;
-    box-shadow:0 -4px 20px rgba(0,0,0,.2);
+  thead th:focus,
+  thead th:hover {
+    background: #243d60;
   }
-  #save-bar.visible { transform:translateY(0); }
-  .btn-save { background:var(--teal); color:white; border:none; border-radius:6px; padding:.5rem 1.4rem; font-size:.85rem; font-weight:600; cursor:pointer; font-family:inherit; transition:background .15s; }
-  .btn-save:hover { background:var(--teal-light); }
-  .btn-clear { background:transparent; color:rgba(255,255,255,.5); border:1px solid rgba(255,255,255,.2); border-radius:6px; padding:.5rem 1rem; font-size:.8rem; cursor:pointer; font-family:inherit; margin-left:.6rem; transition:all .15s; }
-  .btn-clear:hover { color:white; border-color:rgba(255,255,255,.5); }
  
-  .page-footer { text-align:center; padding:1.5rem 1.5rem 5rem; font-size:.75rem; color:var(--muted); border-top:1px solid var(--border); margin-top:1rem; }
+  thead th:first-child { width: 145px; }
+ 
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr.past    { background: var(--past-bg); }
+  tbody tr.today   { background: var(--today-bg); }
+  tbody tr.holiday { background: var(--holiday-bg); }
+ 
+  /* Cell focus style */
+  td:focus {
+    background: #e8f4ff !important;
+    box-shadow: inset 0 0 0 2px #3b82f6;
+    z-index: 2;
+  }
+  td:hover:not(:focus) { background: #f5f9ff !important; cursor: text; }
+  tbody tr.past td:hover:not(:focus)    { background: #fff3e0 !important; }
+  tbody tr.today td:hover:not(:focus)   { background: #d4f0f0 !important; }
+  tbody tr.holiday td:hover:not(:focus) { background: #ffe0e0 !important; }
+ 
+  /* BADGES inline */
+  .badge {
+    display: inline-block;
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .18rem .5rem;
+    border-radius: 4px;
+    margin-left: .4rem;
+    vertical-align: middle;
+    user-select: none;
+    pointer-events: none;
+  }
+  .badge-past  { background: #fde8c8; color: #92540a; }
+  .badge-today { background: #b2e8e8; color: #005a5a; }
+ 
+  tfoot td {
+    background: #f8fafc;
+    font-size: .78rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    cursor: text;
+  }
+  tfoot td:focus { background: #fffbe8 !important; box-shadow: inset 0 0 0 2px var(--gold); }
+ 
+  /* SAVE TOAST */
+  #toast {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    background: #1e2d40;
+    color: white;
+    padding: .7rem 1.3rem;
+    border-radius: 8px;
+    font-size: .84rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    transform: translateY(120%);
+    transition: transform .3s ease;
+    z-index: 200;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  #toast.show { transform: translateY(0); }
+  #toast.ok { border-left: 4px solid #4ade80; }
+  #toast.warn { border-left: 4px solid var(--gold); }
+ 
+  .page-footer { text-align:center; padding:1.5rem; font-size:.75rem; color:var(--muted); border-top:1px solid var(--border); margin-top:1rem; }
+ 
+  @media(max-width:600px){ .main{padding:1rem;} .header{padding:1.5rem 1rem 1.2rem;} }
 </style>
 </head>
 <body>
@@ -119,138 +215,170 @@
   </div>
 </div>
  
-<div class="edit-hint">✏️ <strong>Clique em qualquer célula</strong> para editar. Use <strong>Ctrl+S</strong> para salvar. O conteúdo fica salvo neste navegador.</div>
-<div class="notice">ℹ️ <strong>Para preencher:</strong> o professor edita esta página e atualiza os campos conforme o planejamento do grupo.</div>
+<div class="toolbar">
+  <span class="toolbar-label">AÇÕES</span>
+  <button class="tb-btn primary" onclick="saveAll()">💾 Salvar &nbsp;<small style="opacity:.7;font-size:.7rem">Ctrl+S</small></button>
+  <div class="tb-sep"></div>
+  <button class="tb-btn" onclick="exportHTML()">⬇ Exportar HTML</button>
+  <button class="tb-btn" onclick="printPage()">🖨 Imprimir</button>
+  <div class="tb-sep"></div>
+  <button class="tb-btn danger" onclick="clearAll()">✕ Limpar tudo</button>
+  <div class="edit-mode-badge"><div class="dot"></div> Edição livre ativa</div>
+</div>
  
 <div class="main">
  
   <!-- 1º SEMESTRE -->
   <div class="semester-block">
-    <div class="semester-header">
+    <div class="semester-header" contenteditable="true">
       <span class="semester-title">1º Semestre</span>
+      &nbsp;&nbsp;
       <span class="semester-info">08/04/2026 a 10/06/2026 · 10 reuniões</span>
     </div>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Data</th><th>Responsável</th><th>Tema / Conteúdo</th><th>Observações</th></tr></thead>
-      <tbody>
-        <tr class="past">
-          <td class="date-cell"><span class="date-main">08/04/2026</span><span class="date-day">Qua</span><span class="badge badge-past">Passada</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r1-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r1-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r1-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr class="past">
-          <td class="date-cell"><span class="date-main">15/04/2026</span><span class="date-day">Qua</span><span class="badge badge-past">Passada</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r2-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r2-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r2-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr class="today">
-          <td class="date-cell"><span class="date-main">22/04/2026</span><span class="date-day">Qua</span><span class="badge badge-today">Hoje</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r3-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r3-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r3-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">29/04/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r4-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r4-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r4-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">06/05/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r5-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r5-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r5-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">13/05/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r6-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r6-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r6-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">20/05/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r7-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r7-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r7-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">27/05/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r8-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r8-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r8-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">03/06/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r9-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r9-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r9-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">10/06/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r10-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r10-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s1r10-obs"  data-placeholder="—"></div></td>
-        </tr>
-      </tbody>
-      <tfoot><tr class="footer-row"><td colspan="4">📌 Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td></tr></tfoot>
-    </table></div>
+    <div class="table-wrap">
+      <table id="table-s1">
+        <thead>
+          <tr>
+            <th contenteditable="true">Data</th>
+            <th contenteditable="true">Responsável</th>
+            <th contenteditable="true">Tema / Conteúdo</th>
+            <th contenteditable="true">Observações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="past">
+            <td contenteditable="true">08/04/2026<br><small style="color:#999">Qua</small> <span class="badge badge-past">Passada</span></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr class="past">
+            <td contenteditable="true">15/04/2026<br><small style="color:#999">Qua</small> <span class="badge badge-past">Passada</span></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr class="today" id="hoje">
+            <td contenteditable="true">22/04/2026<br><small style="color:#999">Qua</small> <span class="badge badge-today">Hoje</span></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">29/04/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">06/05/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">13/05/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">20/05/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">27/05/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">03/06/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">10/06/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="4" contenteditable="true">📌 Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td></tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
  
   <!-- 2º SEMESTRE -->
   <div class="semester-block">
-    <div class="semester-header">
+    <div class="semester-header" contenteditable="true">
       <span class="semester-title">2º Semestre</span>
+      &nbsp;&nbsp;
       <span class="semester-info">07/10/2026 a 18/11/2026</span>
     </div>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Data</th><th>Responsável</th><th>Tema / Conteúdo</th><th>Observações</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="date-cell"><span class="date-main">07/10/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r1-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r1-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r1-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">14/10/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r2-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r2-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r2-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">21/10/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r3-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r3-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r3-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr class="holiday">
-          <td class="date-cell"><span class="date-main">28/10/2026</span><span class="date-day">Qua</span></td>
-          <td colspan="2"><div class="holiday-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Feriado – Dia do Servidor Público</div></td>
-          <td><span class="obs-muted">sem atividades</span></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">04/11/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r5-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r5-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r5-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">11/11/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r6-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r6-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r6-obs"  data-placeholder="—"></div></td>
-        </tr>
-        <tr>
-          <td class="date-cell"><span class="date-main">18/11/2026</span><span class="date-day">Qua</span></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r7-resp" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r7-tema" data-placeholder="—"></div></td>
-          <td><div class="editable" contenteditable="true" data-key="s2r7-obs"  data-placeholder="—"></div></td>
-        </tr>
-      </tbody>
-      <tfoot><tr class="footer-row"><td colspan="4">📌 Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td></tr></tfoot>
-    </table></div>
+    <div class="table-wrap">
+      <table id="table-s2">
+        <thead>
+          <tr>
+            <th contenteditable="true">Data</th>
+            <th contenteditable="true">Responsável</th>
+            <th contenteditable="true">Tema / Conteúdo</th>
+            <th contenteditable="true">Observações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td contenteditable="true">07/10/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">14/10/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">21/10/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr class="holiday">
+            <td contenteditable="true">28/10/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true" colspan="2" style="color:#b91c1c;font-style:italic">⚠ Feriado – Dia do Servidor Público</td>
+            <td contenteditable="true" style="color:#999;font-style:italic">sem atividades</td>
+          </tr>
+          <tr>
+            <td contenteditable="true">04/11/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">11/11/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td contenteditable="true">18/11/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="4" contenteditable="true">📌 Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td></tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
  
 </div>
@@ -259,72 +387,83 @@
   Última atualização: <span id="last-updated"></span> &nbsp;·&nbsp; GEPEATE/LaCiDH · EEFERP-USP
 </div>
  
-<div id="save-bar">
-  <span>💾 Há alterações não salvas</span>
-  <div>
-    <button class="btn-clear" onclick="clearAll()">Limpar tudo</button>
-    <button class="btn-save" onclick="saveAll()">Salvar</button>
-  </div>
-</div>
+<div id="toast"></div>
  
 <script>
-  const KEY = 'gepeate-2026';
-  let dirty = false;
+  const KEY = 'gepeate-2026-v2';
  
+  // ── SAVE ──────────────────────────────────────────────────
+  function saveAll() {
+    const data = { html: document.querySelector('.main').innerHTML };
+    const ts = new Date().toLocaleString('pt-BR');
+    data.__ts = ts;
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      document.getElementById('last-updated').textContent = ts;
+      toast('✓ Salvo com sucesso', 'ok');
+    } catch(e) {
+      toast('⚠ Erro ao salvar — tente exportar HTML', 'warn');
+    }
+  }
+ 
+  // ── LOAD ──────────────────────────────────────────────────
   function loadData() {
     try {
-      const saved = localStorage.getItem(KEY);
-      if (!saved) return;
-      const data = JSON.parse(saved);
-      document.querySelectorAll('.editable[data-key]').forEach(el => {
-        if (data[el.dataset.key] !== undefined) el.textContent = data[el.dataset.key];
-      });
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (data.html) document.querySelector('.main').innerHTML = data.html;
       if (data.__ts) document.getElementById('last-updated').textContent = data.__ts;
     } catch(e) {}
   }
  
-  function saveAll() {
-    const data = {};
-    document.querySelectorAll('.editable[data-key]').forEach(el => { data[el.dataset.key] = el.textContent; });
-    const ts = new Date().toLocaleDateString('pt-BR', { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' });
-    data.__ts = ts;
-    localStorage.setItem(KEY, JSON.stringify(data));
-    document.getElementById('last-updated').textContent = ts;
-    document.getElementById('save-bar').classList.remove('visible');
-    dirty = false;
-    const btn = document.querySelector('.btn-save');
-    btn.textContent = '✓ Salvo!'; btn.style.background = '#059669';
-    setTimeout(() => { btn.textContent = 'Salvar'; btn.style.background = ''; }, 2000);
-  }
- 
+  // ── CLEAR ─────────────────────────────────────────────────
   function clearAll() {
-    if (!confirm('Limpar todo o conteúdo preenchido? Esta ação não pode ser desfeita.')) return;
-    document.querySelectorAll('.editable[data-key]').forEach(el => el.textContent = '');
+    if (!confirm('Apagar todo o conteúdo editado e voltar ao original?\nEsta ação não pode ser desfeita.')) return;
     localStorage.removeItem(KEY);
-    document.getElementById('save-bar').classList.remove('visible');
-    dirty = false;
+    location.reload();
   }
  
-  document.querySelectorAll('.editable').forEach(el => {
-    el.addEventListener('input', () => {
-      if (!dirty) { dirty = true; document.getElementById('save-bar').classList.add('visible'); }
-    });
-    el.addEventListener('keydown', e => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveAll(); }
-    });
+  // ── EXPORT HTML ───────────────────────────────────────────
+  function exportHTML() {
+    const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'cronograma-gepeate-2026.html';
+    a.click();
+    toast('⬇ HTML exportado', 'ok');
+  }
+ 
+  // ── PRINT ─────────────────────────────────────────────────
+  function printPage() { window.print(); }
+ 
+  // ── TOAST ─────────────────────────────────────────────────
+  function toast(msg, type = 'ok') {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'show ' + type;
+    clearTimeout(el._t);
+    el._t = setTimeout(() => { el.className = ''; }, 2800);
+  }
+ 
+  // ── KEYBOARD SHORTCUTS ────────────────────────────────────
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveAll(); }
   });
  
-  // Dynamic today highlight
-  const todayStr = new Date().toLocaleDateString('pt-BR');
-  document.querySelectorAll('.date-main').forEach(el => {
-    if (el.textContent.trim() === todayStr) {
-      const tr = el.closest('tr');
-      tr.classList.remove('past'); tr.classList.add('today');
-      const b = tr.querySelector('.badge');
-      if (b) { b.className = 'badge badge-today'; b.textContent = 'Hoje'; }
-    }
+  // ── AUTO-SAVE on blur (every edit) ────────────────────────
+  let autoTimer;
+  document.addEventListener('input', () => {
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(() => {
+      try {
+        const data = { html: document.querySelector('.main').innerHTML, __ts: new Date().toLocaleString('pt-BR') };
+        localStorage.setItem(KEY, JSON.stringify(data));
+      } catch(e) {}
+    }, 1500);
   });
  
+  // ── INIT ──────────────────────────────────────────────────
   loadData();
  
   if (!document.getElementById('last-updated').textContent) {
@@ -332,5 +471,6 @@
       new Date().toLocaleDateString('pt-BR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   }
 </script>
+ 
 </body>
 </html>
