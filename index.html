@@ -19,6 +19,7 @@
     --past-bg: #fff9f0;
     --today-bg: #e8f7f7;
     --holiday-bg: #fff2f2;
+    --future-bg: #ffffff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
@@ -38,164 +39,97 @@
  
   /* TOOLBAR */
   .toolbar {
-    background: #1e2d40;
-    padding: .6rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: .8rem;
-    flex-wrap: wrap;
+    background: #1e2d40; padding: .6rem 1.5rem;
+    display: flex; align-items: center; gap: .8rem; flex-wrap: wrap;
     border-bottom: 2px solid var(--teal);
   }
   .toolbar-label { font-size:.75rem; color:rgba(255,255,255,.5); font-family:'DM Mono',monospace; letter-spacing:.05em; }
-  .tb-btn {
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.15);
-    color: rgba(255,255,255,.85);
-    border-radius: 5px;
-    padding: .35rem .85rem;
-    font-size: .78rem;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all .15s;
-    display: flex; align-items: center; gap: .4rem;
-  }
-  .tb-btn:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.35); }
-  .tb-btn.primary { background: var(--teal); border-color: var(--teal); color: white; font-weight: 600; }
-  .tb-btn.primary:hover { background: var(--teal-light); }
-  .tb-btn.danger { background: rgba(180,30,30,.3); border-color: rgba(255,100,100,.3); }
-  .tb-btn.danger:hover { background: rgba(180,30,30,.6); }
-  .tb-sep { width: 1px; height: 22px; background: rgba(255,255,255,.15); }
-  .edit-mode-badge {
-    margin-left: auto;
-    font-size: .72rem;
-    font-family: 'DM Mono', monospace;
-    color: var(--gold-light);
-    background: rgba(200,146,58,.15);
-    border: 1px solid rgba(200,146,58,.3);
-    padding: .25rem .7rem;
-    border-radius: 20px;
-    display: flex; align-items: center; gap: .4rem;
-  }
-  .dot { width:7px; height:7px; border-radius:50%; background: #4ade80; animation: pulse 2s infinite; }
+  .tb-btn { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); color:rgba(255,255,255,.85); border-radius:5px; padding:.35rem .85rem; font-size:.78rem; font-family:inherit; cursor:pointer; transition:all .15s; }
+  .tb-btn:hover { background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.35); }
+  .tb-btn.primary { background:var(--teal); border-color:var(--teal); color:white; font-weight:600; }
+  .tb-btn.primary:hover { background:var(--teal-light); }
+  .tb-btn.danger { background:rgba(180,30,30,.3); border-color:rgba(255,100,100,.3); }
+  .tb-btn.danger:hover { background:rgba(180,30,30,.6); }
+  .tb-sep { width:1px; height:22px; background:rgba(255,255,255,.15); }
+  .edit-mode-badge { margin-left:auto; font-size:.72rem; font-family:'DM Mono',monospace; color:var(--gold-light); background:rgba(200,146,58,.15); border:1px solid rgba(200,146,58,.3); padding:.25rem .7rem; border-radius:20px; display:flex; align-items:center; gap:.4rem; }
+  .dot { width:7px; height:7px; border-radius:50%; background:#4ade80; animation:pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+ 
+  /* LEGEND */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: .8rem; align-items: center;
+    padding: .7rem 1.5rem;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    font-size: .75rem; color: var(--muted);
+  }
+  .legend-item { display:flex; align-items:center; gap:.4rem; }
+  .legend-dot { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+  .ld-today   { background: var(--today-bg);   border:1px solid #9dd; }
+  .ld-past    { background: var(--past-bg);    border:1px solid #e8c; }
+  .ld-future  { background: var(--future-bg);  border:1px solid var(--border); }
+  .ld-holiday { background: var(--holiday-bg); border:1px solid #fcc; }
+  .legend-sep { color: var(--border); }
  
   /* MAIN */
   .main { padding: 1.5rem; max-width: 980px; margin: 0 auto; }
- 
-  /* SEMESTER BLOCK */
   .semester-block { margin-bottom: 2.5rem; }
-  .semester-header {
-    background: var(--navy);
-    color: white;
-    padding: .85rem 1.3rem;
-    border-radius: 10px 10px 0 0;
-    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-  }
-  .semester-title { font-size: 1rem; font-weight: 700; }
-  .semester-info { font-size: .78rem; color: rgba(255,255,255,.6); font-family:'DM Mono',monospace; }
+  .semester-header { background:var(--navy); color:white; padding:.85rem 1.3rem; border-radius:10px 10px 0 0; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+  .semester-title { font-size:1rem; font-weight:700; }
+  .semester-info { font-size:.78rem; color:rgba(255,255,255,.6); font-family:'DM Mono',monospace; }
  
-  /* TABLE */
-  .table-wrap {
-    border: 1px solid var(--border);
-    border-top: none;
-    border-radius: 0 0 10px 10px;
-    overflow: hidden;
-    background: white;
-  }
+  .table-wrap { border:1px solid var(--border); border-top:none; border-radius:0 0 10px 10px; overflow:hidden; background:white; }
+  table { width:100%; border-collapse:collapse; }
  
-  table { width: 100%; border-collapse: collapse; }
+  td, th { padding:.7rem 1rem; font-size:.88rem; vertical-align:top; outline:none; position:relative; }
+  thead th { background:#1a3050; color:rgba(255,255,255,.8); font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; text-align:left; cursor:text; }
+  thead th:hover { background:#243d60; }
+  thead th:first-child { width:155px; }
  
-  /* Make ALL cells editable-looking */
-  td, th {
-    padding: .7rem 1rem;
-    font-size: .88rem;
-    vertical-align: top;
-    outline: none;
-    position: relative;
-  }
+  tbody tr { border-bottom:1px solid var(--border); transition: background .2s; }
+  tbody tr:last-child { border-bottom:none; }
  
-  thead th {
-    background: #1a3050;
-    color: rgba(255,255,255,.8);
-    font-size: .72rem;
-    font-weight: 600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    text-align: left;
-    cursor: text;
-  }
-  thead th:focus,
-  thead th:hover {
-    background: #243d60;
-  }
+  /* STATUS CLASSES — aplicadas dinamicamente */
+  tr.status-past    { background: var(--past-bg); }
+  tr.status-today   { background: var(--today-bg); }
+  tr.status-future  { background: var(--future-bg); }
+  tr.status-holiday { background: var(--holiday-bg); }
  
-  thead th:first-child { width: 145px; }
+  td:focus { background:#e8f4ff !important; box-shadow:inset 0 0 0 2px #3b82f6; z-index:2; }
+  td:hover:not(:focus) { background:#f5f9ff !important; cursor:text; }
+  tr.status-past  td:hover:not(:focus) { background:#fff3e0 !important; }
+  tr.status-today td:hover:not(:focus) { background:#d4f0f0 !important; }
  
-  tbody tr { border-bottom: 1px solid var(--border); }
-  tbody tr:last-child { border-bottom: none; }
-  tbody tr.past    { background: var(--past-bg); }
-  tbody tr.today   { background: var(--today-bg); }
-  tbody tr.holiday { background: var(--holiday-bg); }
- 
-  /* Cell focus style */
-  td:focus {
-    background: #e8f4ff !important;
-    box-shadow: inset 0 0 0 2px #3b82f6;
-    z-index: 2;
-  }
-  td:hover:not(:focus) { background: #f5f9ff !important; cursor: text; }
-  tbody tr.past td:hover:not(:focus)    { background: #fff3e0 !important; }
-  tbody tr.today td:hover:not(:focus)   { background: #d4f0f0 !important; }
-  tbody tr.holiday td:hover:not(:focus) { background: #ffe0e0 !important; }
- 
-  /* BADGES inline */
-  .badge {
+  /* BADGE — gerado por JS, não editável */
+  .auto-badge {
     display: inline-block;
-    font-size: .62rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    padding: .18rem .5rem;
-    border-radius: 4px;
-    margin-left: .4rem;
-    vertical-align: middle;
-    user-select: none;
-    pointer-events: none;
+    font-size: .6rem; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: .15rem .45rem; border-radius: 4px;
+    margin-left: .4rem; vertical-align: middle;
+    pointer-events: none; user-select: none;
   }
-  .badge-past  { background: #fde8c8; color: #92540a; }
-  .badge-today { background: #b2e8e8; color: #005a5a; }
+  .ab-past    { background:#fde8c8; color:#92540a; }
+  .ab-today   { background:#b2e8e8; color:#005a5a; }
+  .ab-next    { background:#dbeafe; color:#1e40af; }
+  .ab-holiday { background:#fee2e2; color:#991b1b; font-style:italic; }
  
-  tfoot td {
-    background: #f8fafc;
-    font-size: .78rem;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-    cursor: text;
-  }
-  tfoot td:focus { background: #fffbe8 !important; box-shadow: inset 0 0 0 2px var(--gold); }
+  tfoot td { background:#f8fafc; font-size:.78rem; color:var(--muted); border-top:1px solid var(--border); cursor:text; }
+  tfoot td:focus { background:#fffbe8 !important; box-shadow:inset 0 0 0 2px var(--gold); }
  
-  /* SAVE TOAST */
-  #toast {
-    position: fixed;
-    bottom: 1.5rem; right: 1.5rem;
-    background: #1e2d40;
-    color: white;
-    padding: .7rem 1.3rem;
-    border-radius: 8px;
-    font-size: .84rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,.25);
-    transform: translateY(120%);
-    transition: transform .3s ease;
-    z-index: 200;
-    display: flex; align-items: center; gap: .5rem;
-  }
-  #toast.show { transform: translateY(0); }
-  #toast.ok { border-left: 4px solid #4ade80; }
-  #toast.warn { border-left: 4px solid var(--gold); }
+  /* TOAST */
+  #toast { position:fixed; bottom:1.5rem; right:1.5rem; background:#1e2d40; color:white; padding:.7rem 1.3rem; border-radius:8px; font-size:.84rem; box-shadow:0 4px 20px rgba(0,0,0,.25); transform:translateY(120%); transition:transform .3s ease; z-index:200; }
+  #toast.show { transform:translateY(0); }
+  #toast.ok   { border-left:4px solid #4ade80; }
+  #toast.warn { border-left:4px solid var(--gold); }
  
   .page-footer { text-align:center; padding:1.5rem; font-size:.75rem; color:var(--muted); border-top:1px solid var(--border); margin-top:1rem; }
  
-  @media(max-width:600px){ .main{padding:1rem;} .header{padding:1.5rem 1rem 1.2rem;} }
+  @media print {
+    .toolbar, .legend, #toast { display:none !important; }
+    body { background:white; }
+    .main { padding:.5rem; }
+  }
 </style>
 </head>
 <body>
@@ -217,7 +151,7 @@
  
 <div class="toolbar">
   <span class="toolbar-label">AÇÕES</span>
-  <button class="tb-btn primary" onclick="saveAll()">💾 Salvar &nbsp;<small style="opacity:.7;font-size:.7rem">Ctrl+S</small></button>
+  <button class="tb-btn primary" onclick="saveAll()">💾 Salvar <small style="opacity:.7;font-size:.7rem">Ctrl+S</small></button>
   <div class="tb-sep"></div>
   <button class="tb-btn" onclick="exportHTML()">⬇ Exportar HTML</button>
   <button class="tb-btn" onclick="printPage()">🖨 Imprimir</button>
@@ -226,90 +160,79 @@
   <div class="edit-mode-badge"><div class="dot"></div> Edição livre ativa</div>
 </div>
  
+<div class="legend">
+  <strong style="color:var(--text);margin-right:.2rem">Legenda:</strong>
+  <div class="legend-item"><div class="legend-dot ld-today"></div> Hoje</div>
+  <span class="legend-sep">|</span>
+  <div class="legend-item"><div class="legend-dot ld-past"></div> Passada</div>
+  <span class="legend-sep">|</span>
+  <div class="legend-item"><div class="legend-dot ld-future"></div> Próximas</div>
+  <span class="legend-sep">|</span>
+  <div class="legend-item"><div class="legend-dot ld-holiday"></div> Feriado</div>
+  <span class="legend-sep">·</span>
+  <span style="font-style:italic">Cores e badges atualizados automaticamente a cada acesso</span>
+</div>
+ 
 <div class="main">
  
   <!-- 1º SEMESTRE -->
   <div class="semester-block">
     <div class="semester-header" contenteditable="true">
-      <span class="semester-title">1º Semestre</span>
-      &nbsp;&nbsp;
+      <span class="semester-title">1º Semestre</span>&nbsp;&nbsp;
       <span class="semester-info">08/04/2026 a 10/06/2026 · 10 reuniões</span>
     </div>
     <div class="table-wrap">
-      <table id="table-s1">
-        <thead>
-          <tr>
-            <th contenteditable="true">Data</th>
-            <th contenteditable="true">Responsável</th>
-            <th contenteditable="true">Tema / Conteúdo</th>
-            <th contenteditable="true">Observações</th>
-          </tr>
-        </thead>
+      <table>
+        <thead><tr>
+          <th contenteditable="true">Data</th>
+          <th contenteditable="true">Responsável</th>
+          <th contenteditable="true">Tema / Conteúdo</th>
+          <th contenteditable="true">Observações</th>
+        </tr></thead>
         <tbody>
-          <tr class="past">
-            <td contenteditable="true">08/04/2026<br><small style="color:#999">Qua</small> <span class="badge badge-past">Passada</span></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <!-- data-date="YYYY-MM-DD" é lido pelo JS para classificação automática -->
+          <tr data-date="2026-04-08">
+            <td class="date-col" contenteditable="true">08/04/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr class="past">
-            <td contenteditable="true">15/04/2026<br><small style="color:#999">Qua</small> <span class="badge badge-past">Passada</span></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-04-15">
+            <td class="date-col" contenteditable="true">15/04/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr class="today" id="hoje">
-            <td contenteditable="true">22/04/2026<br><small style="color:#999">Qua</small> <span class="badge badge-today">Hoje</span></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-04-22">
+            <td class="date-col" contenteditable="true">22/04/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">29/04/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-04-29">
+            <td class="date-col" contenteditable="true">29/04/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">06/05/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-05-06">
+            <td class="date-col" contenteditable="true">06/05/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">13/05/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-05-13">
+            <td class="date-col" contenteditable="true">13/05/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">20/05/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-05-20">
+            <td class="date-col" contenteditable="true">20/05/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">27/05/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-05-27">
+            <td class="date-col" contenteditable="true">27/05/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">03/06/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-06-03">
+            <td class="date-col" contenteditable="true">03/06/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">10/06/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-06-10">
+            <td class="date-col" contenteditable="true">10/06/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr><td colspan="4" contenteditable="true">📌 Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td></tr>
-        </tfoot>
+        <tfoot><tr><td colspan="4" contenteditable="true">📌 Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td></tr></tfoot>
       </table>
     </div>
   </div>
@@ -317,66 +240,49 @@
   <!-- 2º SEMESTRE -->
   <div class="semester-block">
     <div class="semester-header" contenteditable="true">
-      <span class="semester-title">2º Semestre</span>
-      &nbsp;&nbsp;
+      <span class="semester-title">2º Semestre</span>&nbsp;&nbsp;
       <span class="semester-info">07/10/2026 a 18/11/2026</span>
     </div>
     <div class="table-wrap">
-      <table id="table-s2">
-        <thead>
-          <tr>
-            <th contenteditable="true">Data</th>
-            <th contenteditable="true">Responsável</th>
-            <th contenteditable="true">Tema / Conteúdo</th>
-            <th contenteditable="true">Observações</th>
-          </tr>
-        </thead>
+      <table>
+        <thead><tr>
+          <th contenteditable="true">Data</th>
+          <th contenteditable="true">Responsável</th>
+          <th contenteditable="true">Tema / Conteúdo</th>
+          <th contenteditable="true">Observações</th>
+        </tr></thead>
         <tbody>
-          <tr>
-            <td contenteditable="true">07/10/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-10-07">
+            <td class="date-col" contenteditable="true">07/10/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
+          </tr>
+          <tr data-date="2026-10-14">
+            <td class="date-col" contenteditable="true">14/10/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
+          </tr>
+          <tr data-date="2026-10-21">
+            <td class="date-col" contenteditable="true">21/10/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
+          </tr>
+          <tr data-date="2026-10-28" data-holiday="Feriado – Dia do Servidor Público">
+            <td class="date-col" contenteditable="true">28/10/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true" colspan="2"></td>
             <td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">14/10/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-11-04">
+            <td class="date-col" contenteditable="true">04/11/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr>
-            <td contenteditable="true">21/10/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-11-11">
+            <td class="date-col" contenteditable="true">11/11/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
-          <tr class="holiday">
-            <td contenteditable="true">28/10/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true" colspan="2" style="color:#b91c1c;font-style:italic">⚠ Feriado – Dia do Servidor Público</td>
-            <td contenteditable="true" style="color:#999;font-style:italic">sem atividades</td>
-          </tr>
-          <tr>
-            <td contenteditable="true">04/11/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td contenteditable="true">11/11/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td contenteditable="true">18/11/2026<br><small style="color:#999">Qua</small></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
-            <td contenteditable="true"></td>
+          <tr data-date="2026-11-18">
+            <td class="date-col" contenteditable="true">18/11/2026<br><small style="color:#999">Qua</small></td>
+            <td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr><td colspan="4" contenteditable="true">📌 Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td></tr>
-        </tfoot>
+        <tfoot><tr><td colspan="4" contenteditable="true">📌 Preencher conforme planejamento do grupo · Sala 5, EEFERP – Bloco 2</td></tr></tfoot>
       </table>
     </div>
   </div>
@@ -390,23 +296,82 @@
 <div id="toast"></div>
  
 <script>
-  const KEY = 'gepeate-2026-v2';
+  const KEY = 'gepeate-2026-v3';
  
-  // ── SAVE ──────────────────────────────────────────────────
-  function saveAll() {
-    const data = { html: document.querySelector('.main').innerHTML };
-    const ts = new Date().toLocaleString('pt-BR');
-    data.__ts = ts;
-    try {
-      localStorage.setItem(KEY, JSON.stringify(data));
-      document.getElementById('last-updated').textContent = ts;
-      toast('✓ Salvo com sucesso', 'ok');
-    } catch(e) {
-      toast('⚠ Erro ao salvar — tente exportar HTML', 'warn');
-    }
+  // ── CLASSIFICAÇÃO AUTOMÁTICA POR DATA ────────────────────
+  function classifyRows() {
+    const now  = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let nextFound = false;
+ 
+    document.querySelectorAll('tr[data-date]').forEach(tr => {
+      const [y, m, d] = tr.dataset.date.split('-').map(Number);
+      const rowDate   = new Date(y, m - 1, d);
+      const isHoliday = !!tr.dataset.holiday;
+ 
+      // Remove classes anteriores
+      tr.classList.remove('status-past','status-today','status-future','status-holiday');
+ 
+      // Remove badge anterior (gerado pelo JS)
+      tr.querySelectorAll('.auto-badge').forEach(b => b.remove());
+ 
+      const dateTd = tr.querySelector('.date-col');
+ 
+      if (isHoliday) {
+        tr.classList.add('status-holiday');
+        const b = document.createElement('span');
+        b.className = 'auto-badge ab-holiday';
+        b.textContent = '⚠ ' + tr.dataset.holiday;
+        // Coloca o texto do feriado na 2ª célula se estiver vazia
+        const cells = tr.querySelectorAll('td[contenteditable]');
+        if (cells[1] && cells[1].textContent.trim() === '') {
+          cells[1].textContent = tr.dataset.holiday;
+          cells[1].style.color = '#b91c1c';
+          cells[1].style.fontStyle = 'italic';
+        }
+        if (dateTd) { dateTd.appendChild(document.createElement('br')); dateTd.appendChild(b); }
+ 
+      } else if (rowDate.getTime() === today.getTime()) {
+        tr.classList.add('status-today');
+        const b = document.createElement('span');
+        b.className = 'auto-badge ab-today'; b.textContent = 'Hoje';
+        if (dateTd) { dateTd.appendChild(document.createElement('br')); dateTd.appendChild(b); }
+ 
+      } else if (rowDate < today) {
+        tr.classList.add('status-past');
+        const b = document.createElement('span');
+        b.className = 'auto-badge ab-past'; b.textContent = 'Passada';
+        if (dateTd) { dateTd.appendChild(document.createElement('br')); dateTd.appendChild(b); }
+ 
+      } else {
+        tr.classList.add('status-future');
+        // Marca só a PRÓXIMA reunião
+        if (!nextFound) {
+          nextFound = true;
+          const b = document.createElement('span');
+          b.className = 'auto-badge ab-next'; b.textContent = 'Próxima';
+          if (dateTd) { dateTd.appendChild(document.createElement('br')); dateTd.appendChild(b); }
+        }
+      }
+    });
   }
  
-  // ── LOAD ──────────────────────────────────────────────────
+  // ── SAVE ─────────────────────────────────────────────────
+  function saveAll() {
+    // Antes de salvar, remove badges (serão recriados no load)
+    document.querySelectorAll('.auto-badge').forEach(b => b.remove());
+    const data = { html: document.querySelector('.main').innerHTML, __ts: new Date().toLocaleString('pt-BR') };
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      document.getElementById('last-updated').textContent = data.__ts;
+      toast('✓ Salvo com sucesso', 'ok');
+    } catch(e) {
+      toast('⚠ Erro ao salvar — use Exportar HTML', 'warn');
+    }
+    classifyRows(); // Reclassifica após salvar
+  }
+ 
+  // ── LOAD ─────────────────────────────────────────────────
   function loadData() {
     try {
       const raw = localStorage.getItem(KEY);
@@ -417,60 +382,57 @@
     } catch(e) {}
   }
  
-  // ── CLEAR ─────────────────────────────────────────────────
+  // ── CLEAR ────────────────────────────────────────────────
   function clearAll() {
     if (!confirm('Apagar todo o conteúdo editado e voltar ao original?\nEsta ação não pode ser desfeita.')) return;
     localStorage.removeItem(KEY);
     location.reload();
   }
  
-  // ── EXPORT HTML ───────────────────────────────────────────
+  // ── EXPORT HTML ──────────────────────────────────────────
   function exportHTML() {
     const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'cronograma-gepeate-2026.html';
-    a.click();
+    a.href = URL.createObjectURL(blob); a.download = 'cronograma-gepeate-2026.html'; a.click();
     toast('⬇ HTML exportado', 'ok');
   }
  
-  // ── PRINT ─────────────────────────────────────────────────
   function printPage() { window.print(); }
  
-  // ── TOAST ─────────────────────────────────────────────────
-  function toast(msg, type = 'ok') {
+  // ── TOAST ────────────────────────────────────────────────
+  function toast(msg, type) {
     const el = document.getElementById('toast');
-    el.textContent = msg;
-    el.className = 'show ' + type;
-    clearTimeout(el._t);
-    el._t = setTimeout(() => { el.className = ''; }, 2800);
+    el.textContent = msg; el.className = 'show ' + (type||'ok');
+    clearTimeout(el._t); el._t = setTimeout(() => { el.className = ''; }, 2800);
   }
  
-  // ── KEYBOARD SHORTCUTS ────────────────────────────────────
-  document.addEventListener('keydown', e => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveAll(); }
-  });
- 
-  // ── AUTO-SAVE on blur (every edit) ────────────────────────
+  // ── AUTO-SAVE ────────────────────────────────────────────
   let autoTimer;
   document.addEventListener('input', () => {
     clearTimeout(autoTimer);
     autoTimer = setTimeout(() => {
+      document.querySelectorAll('.auto-badge').forEach(b => b.remove());
       try {
         const data = { html: document.querySelector('.main').innerHTML, __ts: new Date().toLocaleString('pt-BR') };
         localStorage.setItem(KEY, JSON.stringify(data));
       } catch(e) {}
+      classifyRows();
     }, 1500);
   });
  
-  // ── INIT ──────────────────────────────────────────────────
+  // ── KEYBOARD ─────────────────────────────────────────────
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveAll(); }
+  });
+ 
+  // ── INIT ─────────────────────────────────────────────────
   loadData();
+  classifyRows();
  
   if (!document.getElementById('last-updated').textContent) {
     document.getElementById('last-updated').textContent =
       new Date().toLocaleDateString('pt-BR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   }
 </script>
- 
 </body>
 </html>
